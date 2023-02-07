@@ -1,0 +1,529 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Pokemons",
+    "dateExported": "2023-02-06T01:18:22.607Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "c26b7f3d-b776-4708-ad79-c40a48961522",
+            "colId": "327f92cf-2a22-48fe-b28f-240c17c4baeb",
+            "containerId": "",
+            "name": "pokemons",
+            "url": "http://localhost:3000/api/v1/pokemons?count=2&after=10",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-02-05T22:37:28.640Z",
+            "modified": "2023-02-05T22:37:28.640Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "count",
+                    "value": "2",
+                    "isPath": false
+                },
+                {
+                    "name": "after",
+                    "value": "10",
+                    "isPath": false
+                }
+            ],
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "isjson",
+                    "value": "true"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json[0].id",
+                    "action": "equal",
+                    "value": "11"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json",
+                    "action": "count",
+                    "value": "2"
+                }
+            ]
+        },
+        {
+            "_id": "b6387af2-a25c-487f-9d27-79934626444c",
+            "colId": "327f92cf-2a22-48fe-b28f-240c17c4baeb",
+            "containerId": "",
+            "name": "pokemon",
+            "url": "http://localhost:3000/api/v1/pokemon/77",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-02-05T22:37:28.641Z",
+            "modified": "2023-02-05T22:54:33.112Z",
+            "headers": [],
+            "params": [],
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "isjson",
+                    "value": "true"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.name.english",
+                    "action": "equal",
+                    "value": "Ponyta"
+                }
+            ]
+        },
+        {
+            "_id": "a23995a3-2576-4c6c-8b1f-a0bcef3647fa",
+            "colId": "327f92cf-2a22-48fe-b28f-240c17c4baeb",
+            "containerId": "",
+            "name": "pokemon not found",
+            "url": "http://localhost:3000/api/v1/pokemon/893849",
+            "method": "GET",
+            "sortNum": 25000,
+            "created": "2023-02-05T22:37:28.642Z",
+            "modified": "2023-02-05T23:02:01.715Z",
+            "headers": [],
+            "params": [],
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "isjson",
+                    "value": "true"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.errMsg",
+                    "action": "equal",
+                    "value": "Pokemon not found"
+                }
+            ]
+        },
+        {
+            "_id": "fc9698da-030f-43bc-a997-453ab711ee1c",
+            "colId": "327f92cf-2a22-48fe-b28f-240c17c4baeb",
+            "containerId": "",
+            "name": "pokemon key cast error",
+            "url": "http://localhost:3000/api/v1/pokemon/gjkl34j@3_*+",
+            "method": "GET",
+            "sortNum": 27500,
+            "created": "2023-02-05T22:37:28.643Z",
+            "modified": "2023-02-05T23:05:02.788Z",
+            "headers": [],
+            "params": [],
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "isjson",
+                    "value": "true"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.errMsg",
+                    "action": "equal",
+                    "value": "Cast Error: pass pokemon id between 1 and 809"
+                }
+            ]
+        },
+        {
+            "_id": "3f0efe33-566b-48a6-bae4-ca644f99b21c",
+            "colId": "327f92cf-2a22-48fe-b28f-240c17c4baeb",
+            "containerId": "",
+            "name": "pokemon",
+            "url": "http://localhost:3000/api/v1/pokemon",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-02-05T22:37:28.644Z",
+            "modified": "2023-02-05T22:37:44.996Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": {\n      \"english\": \"test\",\n      \"japanese\": \"test\",\n      \"chinese\": \"test\",\n      \"french\": \"test\"\n    },\n    \"base\": {\n      \"HP\": 50,\n      \"Attack\": 20,\n      \"Defense\": 55,\n      \"Speed\": 30,\n      \"Speed Attack\": 25,\n      \"Speed Defense\": 25\n    },\n    \n    \"id\": 1000,\n    \"type\": [\n    {\n      \"english\": \"Bug\" \n    }\n ],\n    \"__v\": 0\n  }",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "isjson",
+                    "value": "true"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.msg",
+                    "action": "equal",
+                    "value": "Added Successfully"
+                }
+            ]
+        },
+        {
+            "_id": "909acda5-a2d7-4b6a-8485-8252e599a801",
+            "colId": "327f92cf-2a22-48fe-b28f-240c17c4baeb",
+            "containerId": "",
+            "name": "pokemon validation error",
+            "url": "http://localhost:3000/api/v1/pokemon",
+            "method": "POST",
+            "sortNum": 32500,
+            "created": "2023-02-05T22:37:28.645Z",
+            "modified": "2023-02-06T00:08:19.430Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": {\n      \"english\": \"testuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu\",\n      \"japanese\": \"test\",\n      \"chinese\": \"test\",\n      \"french\": \"test\"\n    },\n    \"base\": {\n      \"HP\": 50,\n      \"Attack\": 20,\n      \"Defense\": 55,\n      \"Speed\": 30,\n      \"Speed Attack\": 25,\n      \"Speed Defense\": 25\n    },\n    \n    \"id\": 1000,\n    \"type\": [\n      \"Bug\" \n],\n    \"__v\": 0\n  }",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "isjson",
+                    "value": "true"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.errMsg",
+                    "action": "equal",
+                    "value": "ValidationError: check your type field"
+                }
+            ]
+        },
+        {
+            "_id": "27bc3b8d-8f11-41da-949e-cc8e6bcc5318",
+            "colId": "327f92cf-2a22-48fe-b28f-240c17c4baeb",
+            "containerId": "",
+            "name": "pokemon duplicate",
+            "url": "http://localhost:3000/api/v1/pokemon",
+            "method": "POST",
+            "sortNum": 35000,
+            "created": "2023-02-05T22:37:28.646Z",
+            "modified": "2023-02-06T00:09:33.585Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": {\n      \"english\": \"test\",\n      \"japanese\": \"test\",\n      \"chinese\": \"test\",\n      \"french\": \"test\"\n    },\n    \"base\": {\n      \"HP\": 50,\n      \"Attack\": 20,\n      \"Defense\": 55,\n      \"Speed\": 30,\n      \"Speed Attack\": 25,\n      \"Speed Defense\": 25\n    },\n    \n    \"id\": 1000,\n    \"type\": [\n      {\n      \"english\": \"Bug\" \n      }\n    ],\n    \"__v\": 0\n  }",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "isjson",
+                    "value": "true"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.errMsg.code",
+                    "action": "equal",
+                    "value": "11000"
+                }
+            ]
+        },
+        {
+            "_id": "868dd9b6-6215-4825-a04b-9ee3f7667dc6",
+            "colId": "327f92cf-2a22-48fe-b28f-240c17c4baeb",
+            "containerId": "",
+            "name": "pokemon",
+            "url": "http://localhost:3000/api/v1/pokemon/1000",
+            "method": "DELETE",
+            "sortNum": 40000,
+            "created": "2023-02-05T22:37:28.647Z",
+            "modified": "2023-02-05T22:37:28.647Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": {\n      \"english\": \"test\",\n      \"japanese\": \"test\",\n      \"chinese\": \"test\",\n      \"french\": \"test\"\n    },\n    \"base\": {\n      \"HP\": 50,\n      \"Attack\": 20,\n      \"Defense\": 55,\n      \"Speed\": 30,\n      \"Speed Attack\": 25,\n      \"Speed Defense\": 25\n    },\n    \n    \"id\": 1000,\n    \"type\": [\n      \"Bug\"\n    ],\n    \"__v\": 0\n  }",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "isjson",
+                    "value": "true"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.msg",
+                    "action": "equal",
+                    "value": "Deleted Successfully"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.pokeInfo.id",
+                    "action": "equal",
+                    "value": "1000"
+                }
+            ]
+        },
+        {
+            "_id": "667f843f-859f-4ddb-915e-77bd3b71e78d",
+            "colId": "327f92cf-2a22-48fe-b28f-240c17c4baeb",
+            "containerId": "",
+            "name": "pokemon not found",
+            "url": "http://localhost:3000/api/v1/pokemon/2000",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2023-02-05T22:37:28.648Z",
+            "modified": "2023-02-05T22:37:28.648Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": {\n      \"english\": \"test\",\n      \"japanese\": \"test\",\n      \"chinese\": \"test\",\n      \"french\": \"test\"\n    },\n    \"base\": {\n      \"HP\": 50,\n      \"Attack\": 20,\n      \"Defense\": 55,\n      \"Speed\": 30,\n      \"Speed Attack\": 25,\n      \"Speed Defense\": 25\n    },\n    \n    \"id\": 1000,\n    \"type\": [\n      \"Bug\"\n    ],\n    \"__v\": 0\n  }",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "isjson",
+                    "value": "true"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.errMsg",
+                    "action": "equal",
+                    "value": "Pokemon not found"
+                }
+            ]
+        },
+        {
+            "_id": "e6e41c0b-6fab-4700-9221-c7772b301695",
+            "colId": "327f92cf-2a22-48fe-b28f-240c17c4baeb",
+            "containerId": "",
+            "name": "pokemon ",
+            "url": "http://localhost:3000/api/v1/pokemon/1000",
+            "method": "PUT",
+            "sortNum": 60000,
+            "created": "2023-02-05T22:37:28.649Z",
+            "modified": "2023-02-05T23:24:16.534Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": {\n      \"english\": \"test\",\n      \"japanese\": \"test\",\n      \"chinese\": \"test\",\n      \"french\": \"test\"\n    },\n    \"base\": {\n      \"HP\": 60,\n      \"Attack\": 20,\n      \"Defense\": 55,\n      \"Speed\": 30,\n      \"Speed Attack\": 25,\n      \"Speed Defense\": 25\n    },\n    \n    \"id\": 1000,\n    \"type\": [\n      {\n       \"english\": \"Bug\"\n      }\n    ],\n    \"__v\": 0\n  }",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "isjson",
+                    "value": "true"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.msg",
+                    "action": "equal",
+                    "value": "Updated Successfully"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.pokeInfo.id",
+                    "action": "equal",
+                    "value": "1000"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.pokeInfo.base.HP",
+                    "action": "equal",
+                    "value": "60"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.pokeInfo.base.Attack",
+                    "action": "equal",
+                    "value": "20"
+                }
+            ]
+        },
+        {
+            "_id": "d248b99a-2b85-46ff-9ab3-3c1b2c1881b0",
+            "colId": "327f92cf-2a22-48fe-b28f-240c17c4baeb",
+            "containerId": "",
+            "name": "pokemon  validation",
+            "url": "http://localhost:3000/api/v1/pokemon/1000",
+            "method": "PUT",
+            "sortNum": 62500,
+            "created": "2023-02-05T22:37:28.650Z",
+            "modified": "2023-02-05T23:59:28.165Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": {\n      \"english\": \"test\",\n      \"japanese\": \"test\",\n      \"chinese\": \"test\",\n      \"french\": \"test\"\n    },\n    \"base\": {\n      \"HP\": \"sjhfsjh\",\n      \"Attack\": 20,\n      \"Defense\": 55,\n      \"Speed\": 30,\n      \"Speed Attack\": 25,\n      \"Speed Defense\": 25\n    },\n    \n    \"id\": 1000,\n    \"type\": [\n      \"Bug\"\n    ],\n    \"__v\": 0\n  }",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "isjson",
+                    "value": "true"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.errMsg",
+                    "action": "equal",
+                    "value": "ValidationError: check your base.HP field"
+                }
+            ]
+        },
+        {
+            "_id": "72c1cc25-e2f2-4ce9-9dce-54ab6548214b",
+            "colId": "327f92cf-2a22-48fe-b28f-240c17c4baeb",
+            "containerId": "",
+            "name": "pokemon  notFound",
+            "url": "http://localhost:3000/api/v1/pokemon/10000",
+            "method": "PUT",
+            "sortNum": 65000,
+            "created": "2023-02-05T22:37:28.652Z",
+            "modified": "2023-02-06T00:19:31.038Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": {\n      \"english\": \"test\",\n      \"japanese\": \"test\",\n      \"chinese\": \"test\",\n      \"french\": \"test\"\n    },\n    \"base\": {\n      \"HP\": 60,\n      \"Attack\": 20,\n      \"Defense\": 55,\n      \"Speed\": 30,\n      \"Speed Attack\": 25,\n      \"Speed Defense\": 25\n    },\n    \n    \"id\": 10000,\n    \"type\": [\n      {\n       \"english\": \"Bug\"\n      }\n    ],\n    \"__v\": 0\n  }",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "isjson",
+                    "value": "true"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.msg",
+                    "action": "equal",
+                    "value": "Not found"
+                }
+            ]
+        },
+        {
+            "_id": "1ae7e591-d5d3-4dda-98dd-56c1301fb931",
+            "colId": "327f92cf-2a22-48fe-b28f-240c17c4baeb",
+            "containerId": "",
+            "name": "pokemon  patch",
+            "url": "http://localhost:3000/api/v1/pokemon/1000",
+            "method": "PATCH",
+            "sortNum": 67500,
+            "created": "2023-02-05T22:37:28.653Z",
+            "modified": "2023-02-06T00:24:52.004Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"base\": {\n      \"HP\": 60,\n      \"Attack\": 20,\n      \"Defense\": 55,\n      \"Speed\": 30,\n      \"Speed Attack\": 25,\n      \"Speed Defense\": 25\n    }\n  }",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "isjson",
+                    "value": "true"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.msg",
+                    "action": "equal",
+                    "value": "Updated Successfully"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.pokeInfo.id",
+                    "action": "equal",
+                    "value": "1000"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.pokeInfo.base.HP",
+                    "action": "equal",
+                    "value": "60"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.pokeInfo.base.Attack",
+                    "action": "equal",
+                    "value": "20"
+                }
+            ]
+        },
+        {
+            "_id": "56af8979-94b6-40dd-b53f-3ab982eff45e",
+            "colId": "327f92cf-2a22-48fe-b28f-240c17c4baeb",
+            "containerId": "",
+            "name": "pokemon patch Dangerous",
+            "url": "http://localhost:3000/api/v1/pokemon/1000",
+            "method": "PATCH",
+            "sortNum": 68750,
+            "created": "2023-02-05T22:37:28.654Z",
+            "modified": "2023-02-05T22:37:28.654Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"base\": {\n      \"HP\": 66,\n      \"Attack\": 20,\n      \"Defense\": 55,\n      \"Speed\": 30,\n      \"Speed Attack\": 25,\n      \"Speed Defense\": 25\n    }\n  }",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "isjson",
+                    "value": "true"
+                }
+            ]
+        },
+        {
+            "_id": "4c2cd498-7cce-4755-82e6-fec93cee9cf7",
+            "colId": "327f92cf-2a22-48fe-b28f-240c17c4baeb",
+            "containerId": "",
+            "name": "Improper Route",
+            "url": "http://localhost:3000/api/v1/pokemooooons/?count=2&after=10",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2023-02-05T22:37:28.655Z",
+            "modified": "2023-02-05T22:37:28.655Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "count",
+                    "value": "2",
+                    "isPath": false
+                },
+                {
+                    "name": "after",
+                    "value": "10",
+                    "isPath": false
+                }
+            ],
+            "tests": [
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "isjson",
+                    "value": "true"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.msg",
+                    "action": "equal",
+                    "value": "Improper route. Check API docs plz."
+                }
+            ]
+        }
+    ],
+    "settings": {}
+}
