@@ -1,25 +1,72 @@
 const Pokemon = require('./models/pokemon');
 const express = require('express');
+const axios = require('axios')
 const app = express();
+
+const fetchPokemonData = async () => {
+    pokemonData = await axios({
+        method: 'get',
+        url: 'https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/pokedex.json',
+        responseType: 'json',
+    });
+    return pokemonData
+}
+
+const fetchTypeData = async () => {
+    typeData = await axios({
+        method: 'get',
+        url: 'https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/types.json',
+        responseType: 'json',
+    });
+    return typeData
+}
+
+const matchType = (pokemonData, typeData) => {
+    for (let l = 0; l < pokemonData.data.length; l++) {
+        type = pokemonData.data[l].type;
+        for (let j = 0; j < type.length; j++) {
+            for (let i = 0; i < typeData.data.length; i++) {
+                if (typeData.data[i].english === type[j]) {
+                    pokemonData.data[l].type[j] = typeData.data[i];
+                    break;
+                }
+            }
+        }
+    }
+    return pokemonData;
+}
 
 app.use(express.json());
 
-require('./db.js');
+// require('./db.js');
 
 app.get("/api/v1/pokemons", async (req, res) => {
-
-    const count = req.query.count;
-    const after = req.query.after;
-
+    let pokemons;
+    const count = parseInt(req.query.count);
+    const after = parseInt(req.query.after);
+    pokemonData = await fetchPokemonData();
+    typeData = await fetchTypeData();
+    data = await matchType(pokemonData, typeData);
     if (count < 1) {
         res.status(400).json({msg: "Count is under 1. Please try again."});
     } else if (after > 808 || after < 0) {
         res.status(400).json({msg: "After out of range. Please try again."})
     } else {
         try {
-        const pokemons = await Pokemon.find({}).skip(after).limit(count);
-        res.status(200).json(pokemons);
+            for (let k = count; k < (after + count); k++) {
+                if (k > 808) {
+                    res.status(400).json({msg: "Count and after are out of range. Please try again."});
+                    break;
+                } else {
+                    pokemons = Pokemon.findOne({id: k});
+                }
+            }
+            if (pokemons.length < count) {
+                pokemons = data.data.slice(after, after + count);
+            }
+            res.status(200).json(pokemons);
         } catch (error) {
+            console.log(error);
             res.status(400).send(error);
         }
     }
